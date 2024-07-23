@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using ICSharpCode.AvalonEdit.Highlighting;
+using System.Text.Json;
 
 namespace ScribanLiveEditor
 {
@@ -39,7 +40,9 @@ namespace ScribanLiveEditor
                 if (!_isUpdatingText)
                 {
                     _isUpdatingText = true;
-                    _viewModel.JsonText = JsonEditor.Text;
+                    _viewModel.JsonText = FormatJson(JsonEditor.Text);
+                    Console.WriteLine(_viewModel.JsonText);
+                    
                     UpdatePreviews();
                     _isUpdatingText = false;
                 }
@@ -58,6 +61,7 @@ namespace ScribanLiveEditor
                     {
                         UpdateHtmlPreview();
                         UpdateCSharpPreview();
+                        UpdateHtmlEditPreview();
                     }
                     _isUpdatingText = false;
                 }
@@ -73,8 +77,30 @@ namespace ScribanLiveEditor
             _viewModel.UpdatePreview();
             UpdateHtmlPreview();
             UpdateCSharpPreview();
+            UpdateHtmlEditPreview();
         }
+        static string FormatJson(string jsonString)
+        {
+            try
+            {
+                // Parse the JSON string
+                using (JsonDocument document = JsonDocument.Parse(jsonString))
+                {
+                    // Create options for formatting
+                    var options = new JsonSerializerOptions
+                    {
+                        WriteIndented = true
+                    };
 
+                    // Serialize the document back to a string with formatting
+                    return JsonSerializer.Serialize(document, options);
+                }
+            }
+            catch (JsonException ex)
+            {
+                return $"Invalid JSON: {ex.Message}";
+            }
+        }
         private void UpdateHtmlPreview()
         {
             if (!string.IsNullOrEmpty(_viewModel.PreviewText))
@@ -92,6 +118,15 @@ namespace ScribanLiveEditor
             CSharpPreview.Text = _viewModel.PreviewText;
         }
 
+        private void UpdateHtmlEditPreview()
+        {
+            RazorPreview.Text = _viewModel.PreviewText;
+        }
+
+        private void UpdateJsonEditPreview()
+        {
+            RazorPreview.Text = _viewModel.PreviewText;
+        }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(SaveNameTextBox.Text))
@@ -123,6 +158,11 @@ namespace ScribanLiveEditor
                 System.Windows.MessageBox.Show("ScribanHighlighting.xshd file not found.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return null;
             }
+        }
+
+        private void FormatJSON_Click(object sender, RoutedEventArgs e)
+        {
+            JsonEditor.Text = _viewModel.JsonText;
         }
     }
 }

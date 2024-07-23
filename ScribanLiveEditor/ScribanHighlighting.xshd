@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SyntaxDefinition name="Scriban" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 	<Color name="Comment" foreground="#57A64A" />
-	<Color name="String" foreground="#D69D85" />
-	<Color name="Keyword" foreground="#569CD6" fontWeight="bold" />
-	<Color name="Function" foreground="#DCDCAA" />
-	<Color name="Variable" foreground="#9CDCFE" />
+	<Color name="String" foreground="#997060" />
+	<Color name="Keyword" foreground="#08A000" fontWeight="bold" />
+	<Color name="Function" foreground="#C63C29" />
+	<Color name="Variable" foreground="#419DCC" />
 	<Color name="ScribanBrackets" foreground="#0900C4" fontWeight="bold" />
-	<Color name="DefaultText" foreground="#DCDCDC" />
+	<Color name="DefaultText" foreground="#C20CCC" />
 
 	<RuleSet>
 		<!-- Comments -->
