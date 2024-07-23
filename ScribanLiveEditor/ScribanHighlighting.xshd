@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SyntaxDefinition name="Scriban" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	<Color name="Comment" foreground="#57A64A" />
+	<Color name="String" foreground="#D69D85" />
+	<Color name="Keyword" foreground="#569CD6" fontWeight="bold" />
+	<Color name="Function" foreground="#DCDCAA" />
+	<Color name="Variable" foreground="#9CDCFE" />
+	<Color name="ScribanBrackets" foreground="#0900C4" fontWeight="bold" />
+	<Color name="DefaultText" foreground="#DCDCDC" />
+
+	<RuleSet>
+		<!-- Comments -->
+		<Span color="Comment" begin="#" />
+
+		<!-- Strings -->
+		<Span color="String">
+			<Begin>"</Begin>
+			<End>"</End>
+			<RuleSet>
+				<Span begin="\\" end="." />
+			</RuleSet>
+		</Span>
+		<Span color="String">
+			<Begin>'</Begin>
+			<End>'</End>
+			<RuleSet>
+				<Span begin="\\" end="." />
+			</RuleSet>
+		</Span>
+		<!-- Scriban Brackets -->
+		<Rule color="ScribanBrackets">
+			\{\{|\}\}
+		</Rule>
+
+
+		<!-- Keywords -->
+		<Keywords color="Keyword">
+			<Word>if</Word>
+			<Word>else</Word>
+			<Word>elif</Word>
+			<Word>end</Word>
+			<Word>for</Word>
+			<Word>in</Word>
+			<Word>while</Word>
+			<Word>break</Word>
+			<Word>continue</Word>
+			<Word>with</Word>
+			<Word>capture</Word>
+			<Word>case</Word>
+			<Word>when</Word>
+			<Word>import</Word>
+			<Word>include</Word>
+			<Word>wrap</Word>
+			<Word>ret</Word>
+			<Word>true</Word>
+			<Word>false</Word>
+			<Word>null</Word>
+		</Keywords>
+
+		<!-- Functions -->
+		<Rule color="Function">
+			\b[a-zA-Z_][a-zA-Z0-9_]*(?=\s*\()
+		</Rule>
+
+		<!-- Variables -->
+		<Rule color="Variable">
+			\$[a-zA-Z_][a-zA-Z0-9_]*
+		</Rule>
+	</RuleSet>
+</SyntaxDefinition>
