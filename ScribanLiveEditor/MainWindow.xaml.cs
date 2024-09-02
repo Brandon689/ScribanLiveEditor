@@ -23,6 +23,7 @@ namespace ScribanLiveEditor
             {
                 TemplateEditor.SyntaxHighlighting = scribanHighlighting;
             }
+            PreviewTabControl.SelectionChanged += PreviewTabControl_SelectionChanged;
 
             TemplateEditor.TextChanged += (s, e) =>
             {
@@ -57,9 +58,10 @@ namespace ScribanLiveEditor
                         TemplateEditor.Text = _viewModel.TemplateText;
                     else if (e.PropertyName == nameof(MainViewModel.JsonText))
                         JsonEditor.Text = _viewModel.JsonText;
-                    else if (e.PropertyName == nameof(MainViewModel.PreviewText))
+                    else if (e.PropertyName == nameof(MainViewModel.PreviewText) ||
+                             e.PropertyName == nameof(MainViewModel.HtmlPreviewText))
                     {
-                        UpdateHtmlPreview();
+                        //UpdateHtmlPreview();
                         UpdateCSharpPreview();
                         UpdateHtmlEditPreview();
                     }
@@ -70,15 +72,32 @@ namespace ScribanLiveEditor
             // Initialize editor content
             TemplateEditor.Text = _viewModel.TemplateText;
             JsonEditor.Text = _viewModel.JsonText;
+
+            UpdatePreviews();
         }
+
+        private void PreviewTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is TabItem selectedTab)
+            {
+                if (selectedTab.Header.ToString() == "HTML Preview")
+                {
+                    HtmlPreview.NavigateToString(_viewModel.HtmlPreviewText);
+                    //HtmlPreview.Refresh();
+                }
+            }
+        }
+
 
         private void UpdatePreviews()
         {
             _viewModel.UpdatePreview();
-            UpdateHtmlPreview();
+            //UpdateHtmlPreview();
             UpdateCSharpPreview();
             UpdateHtmlEditPreview();
         }
+
+
         static string FormatJson(string jsonString)
         {
             try
@@ -101,17 +120,19 @@ namespace ScribanLiveEditor
                 return $"Invalid JSON: {ex.Message}";
             }
         }
-        private void UpdateHtmlPreview()
-        {
-            if (!string.IsNullOrEmpty(_viewModel.PreviewText))
-            {
-                HtmlPreview.NavigateToString(_viewModel.PreviewText);
-            }
-            else
-            {
-                HtmlPreview.NavigateToString("<html><body><p>No preview available</p></body></html>");
-            }
-        }
+
+        //private void UpdateHtmlPreview()
+        //{
+        //    if (!string.IsNullOrEmpty(_viewModel.HtmlPreviewText))
+        //    {
+        //        HtmlPreview.NavigateToString(_viewModel.HtmlPreviewText);
+        //    }
+        //    else
+        //    {
+        //        HtmlPreview.NavigateToString("<html><body><p>No preview available</p></body></html>");
+        //    }
+        //}
+
 
         private void UpdateCSharpPreview()
         {
@@ -163,6 +184,11 @@ namespace ScribanLiveEditor
         private void FormatJSON_Click(object sender, RoutedEventArgs e)
         {
             JsonEditor.Text = _viewModel.JsonText;
+        }
+
+        private void HtmlPreview_Initialized(object sender, EventArgs e)
+        {
+            HtmlPreview.NavigateToString("<h2>dwdwdwdwdwd</h2>");
         }
     }
 }

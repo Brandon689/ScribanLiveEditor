@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} - Professional Profile</title>
+</head>
+<body>
+    <div class="profile-section">
+        <h1>{{ name }} - Professional Profile</h1>
+
+        <h2>About Me</h2>
+        <p>Hello! I'm {{ name }}, a {{ age }}-year-old {{ occupation }} based in {{ location.city }}, {{ location.country }}.</p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Education</h2>
+        <p>I hold a {{ education.degree }} in {{ education.major }} from {{ education.university }}, graduating in {{ education.graduationYear }}.</p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Skills</h2>
+        <p>Here are some of my key skills:</p>
+        <ul>
+        {{ for skill in skills }}
+            <li>{{ skill.name }}: <span class="skill-level">{{ skill.level }}</span></li>
+        {{ end }}
+        </ul>
+    </div>
+
+    <div class="profile-section">
+        <h2>Hobbies</h2>
+        <p>When I'm not working, you can find me:</p>
+        <ul>
+        {{ for hobby in hobbies }}
+            <li>{{ hobby }}</li>
+        {{ end }}
+        </ul>
+    </div>
+
+    <div class="profile-section">
+        <h2>Connect with me</h2>
+        <p>Let's connect! You can find me on:</p>
+        <ul>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/{{ socialMedia.linkedin }}">{{ socialMedia.linkedin }}</a></li>
+            <li>GitHub: <a href="https://github.com/{{ socialMedia.github }}">{{ socialMedia.github }}</a></li>
+            <li>Twitter: <a href="https://twitter.com/{{ socialMedia.twitter }}">{{ socialMedia.twitter }}</a></li>
+        </ul>
+
+        {{ 
+          today = date.now
+          day_of_week = today | date.to_string '%w' | string.to_int
+          hobby_index = day_of_week % hobbies.size
+        }}
+        <p>Feel free to reach out if you'd like to collaborate or just chat about {{ hobbies[hobby_index] }}!</p>
+    </div>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .profile-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .skill-level {
+            font-weight: bold;
+            color: #27ae60;
+        }
+    </style>
+</body>
+</html>

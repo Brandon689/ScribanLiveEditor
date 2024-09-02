@@ -1,0 +1,35 @@
+﻿{
+  "name": "John Doe",
+  "age": 30,
+  "occupation": "Software Developer",
+  "location": {
+    "city": "San Francisco",
+    "country": "USA"
+  },
+  "hobbies": [ "Reading", "Coding", "Gaming", "Hiking" ],
+  "skills": [
+    {
+      "name": "JavaScript",
+      "level": "Expert"
+    },
+    {
+      "name": "Python",
+      "level": "Intermediate"
+    },
+    {
+      "name": "Docker",
+      "level": "Beginner"
+    }
+  ],
+  "education": {
+    "degree": "Bachelor of Science",
+    "major": "Computer Science",
+    "university": "Stanford University",
+    "graduationYear": 2016
+  },
+  "socialMedia": {
+    "linkedin": "johndoe",
+    "github": "johndoe-dev",
+    "twitter": "@johndoe_tech"
+  }
+}

@@ -25,4 +25,13 @@
     <PackageReference Include="Scriban" Version="5.10.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="sample-data.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sample-template.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
